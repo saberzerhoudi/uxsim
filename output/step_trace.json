@@ -1,0 +1,294 @@
+[
+  {
+    "step": 1,
+    "observation": {
+      "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nSign in\nNew customer? Start here.\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome\nKitchen\nHealth and Beauty\nSee more\nEasy updates for elevated spaces\nBaskets & hampers\nHardware\nBest Sellers in Books\nBest Sellers in Sports & Outdoors\nWireless Tech\nSmartphones\nWatches\nHeadphones\nTablets\nDiscover more",
+      "url": "https://www.amazon.com/",
+      "clickables": [
+        {
+          "name": "clickable_0_clickable_0",
+          "text": "clickable_0",
+          "id": "clickable_0_clickable_0",
+          "tag": "a",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.27\")>"
+        },
+        {
+          "name": "clickable_1_main_content",
+          "text": "main content",
+          "id": "clickable_1_main_content",
+          "tag": "a",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.28\")>"
+        },
+        {
+          "name": "clickable_2_Search,_option,_forward_slash",
+          "text": "Search, option, forward slash",
+          "id": "clickable_2_Search,_option,_forward_slash",
+          "tag": "a",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.29\")>"
+        },
+        {
+          "name": "clickable_3_Cart,_shift,_option,_c",
+          "text": "Cart, shift, option, c",
+          "id": "clickable_3_Cart,_shift,_option,_c",
+          "tag": "a",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.30\")>"
+        },
+        {
+          "name": "clickable_4_Home,_shift,_option,_h",
+          "text": "Home, shift, option, h",
+          "id": "clickable_4_Home,_shift,_option,_h",
+          "tag": "a",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.31\")>"
+        },
+        {
+          "name": "clickable_5_Your_orders,_shift,_option,_o",
+          "text": "Your orders, shift, option, o",
+          "id": "clickable_5_Your_orders,_shift,_option,_o",
+          "tag": "a",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.32\")>"
+        },
+        {
+          "name": "clickable_6_Show/hide_shortcuts,_shift,_op",
+          "text": "Show/hide shortcuts, shift, option, z",
+          "id": "clickable_6_Show/hide_shortcuts,_shift,_op",
+          "tag": "button",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.33\")>"
+        },
+        {
+          "name": "clickable_7_Amazon",
+          "text": "Amazon",
+          "id": "clickable_7_Amazon",
+          "tag": "a",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.34\")>"
+        },
+        {
+          "name": "clickable_8_Deliver_to\nGermany",
+          "text": "Deliver to\nGermany",
+          "id": "clickable_8_Deliver_to\nGermany",
+          "tag": "a",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.35\")>"
+        },
+        {
+          "name": "clickable_9_EN",
+          "text": "EN",
+          "id": "clickable_9_EN",
+          "tag": "a",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.36\")>"
+        },
+        {
+          "name": "clickable_10_Expand_to_Change_Language_or_C",
+          "text": "Expand to Change Language or Country",
+          "id": "clickable_10_Expand_to_Change_Language_or_C",
+          "tag": "button",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.37\")>"
+        },
+        {
+          "name": "clickable_11_Hello,_sign_in\nAccount_&_Lists",
+          "text": "Hello, sign in\nAccount & Lists",
+          "id": "clickable_11_Hello,_sign_in\nAccount_&_Lists",
+          "tag": "a",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.8\")>"
+        },
+        {
+          "name": "clickable_12_Expand_Account_and_Lists",
+          "text": "Expand Account and Lists",
+          "id": "clickable_12_Expand_Account_and_Lists",
+          "tag": "button",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.38\")>"
+        },
+        {
+          "name": "clickable_13_Returns\n&_Orders",
+          "text": "Returns\n& Orders",
+          "id": "clickable_13_Returns\n&_Orders",
+          "tag": "a",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.39\")>"
+        },
+        {
+          "name": "clickable_14_0\nCart",
+          "text": "0\nCart",
+          "id": "clickable_14_0\nCart",
+          "tag": "a",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.40\")>"
+        },
+        {
+          "name": "clickable_15_clickable_15",
+          "text": "clickable_15",
+          "id": "clickable_15_clickable_15",
+          "tag": "a",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.41\")>"
+        },
+        {
+          "name": "clickable_16_New_to_Amazon?_Start_here_to_c",
+          "text": "New to Amazon? Start here to create an account",
+          "id": "clickable_16_New_to_Amazon?_Start_here_to_c",
+          "tag": "a",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.42\")>"
+        },
+        {
+          "name": "clickable_17_clickable_17",
+          "text": "clickable_17",
+          "id": "clickable_17_clickable_17",
+          "tag": "a",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.43\")>"
+        },
+        {
+          "name": "clickable_18_clickable_18",
+          "text": "clickable_18",
+          "id": "clickable_18_clickable_18",
+          "tag": "a",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.44\")>"
+        },
+        {
+          "name": "clickable_19_clickable_19",
+          "text": "clickable_19",
+          "id": "clickable_19_clickable_19",
+          "tag": "a",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.45\")>"
+        }
+      ],
+      "inputs": [
+        {
+          "name": "input_0_field-keywords",
+          "type": "text",
+          "placeholder": "Search Amazon",
+          "id": "input_0_field-keywords",
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.25\")>"
+        }
+      ],
+      "selects": [
+        {
+          "name": "select_0_url",
+          "id": "select_0_url",
+          "options": [
+            {
+              "value": "search-alias=aps",
+              "text": "All Departments"
+            },
+            {
+              "value": "search-alias=arts-crafts-intl-ship",
+              "text": "Arts & Crafts"
+            },
+            {
+              "value": "search-alias=automotive-intl-ship",
+              "text": "Automotive"
+            },
+            {
+              "value": "search-alias=baby-products-intl-ship",
+              "text": "Baby"
+            },
+            {
+              "value": "search-alias=beauty-intl-ship",
+              "text": "Beauty & Personal Care"
+            },
+            {
+              "value": "search-alias=stripbooks-intl-ship",
+              "text": "Books"
+            },
+            {
+              "value": "search-alias=fashion-boys-intl-ship",
+              "text": "Boys' Fashion"
+            },
+            {
+              "value": "search-alias=computers-intl-ship",
+              "text": "Computers"
+            },
+            {
+              "value": "search-alias=deals-intl-ship",
+              "text": "Deals"
+            },
+            {
+              "value": "search-alias=digital-music",
+              "text": "Digital Music"
+            },
+            {
+              "value": "search-alias=electronics-intl-ship",
+              "text": "Electronics"
+            },
+            {
+              "value": "search-alias=fashion-girls-intl-ship",
+              "text": "Girls' Fashion"
+            },
+            {
+              "value": "search-alias=hpc-intl-ship",
+              "text": "Health & Household"
+            },
+            {
+              "value": "search-alias=kitchen-intl-ship",
+              "text": "Home & Kitchen"
+            },
+            {
+              "value": "search-alias=industrial-intl-ship",
+              "text": "Industrial & Scientific"
+            },
+            {
+              "value": "search-alias=digital-text",
+              "text": "Kindle Store"
+            },
+            {
+              "value": "search-alias=luggage-intl-ship",
+              "text": "Luggage"
+            },
+            {
+              "value": "search-alias=fashion-mens-intl-ship",
+              "text": "Men's Fashion"
+            },
+            {
+              "value": "search-alias=movies-tv-intl-ship",
+              "text": "Movies & TV"
+            },
+            {
+              "value": "search-alias=music-intl-ship",
+              "text": "Music, CDs & Vinyl"
+            },
+            {
+              "value": "search-alias=pets-intl-ship",
+              "text": "Pet Supplies"
+            },
+            {
+              "value": "search-alias=instant-video",
+              "text": "Prime Video"
+            },
+            {
+              "value": "search-alias=software-intl-ship",
+              "text": "Software"
+            },
+            {
+              "value": "search-alias=sporting-intl-ship",
+              "text": "Sports & Outdoors"
+            },
+            {
+              "value": "search-alias=tools-intl-ship",
+              "text": "Tools & Home Improvement"
+            },
+            {
+              "value": "search-alias=toys-and-games-intl-ship",
+              "text": "Toys & Games"
+            },
+            {
+              "value": "search-alias=videogames-intl-ship",
+              "text": "Video Games"
+            },
+            {
+              "value": "search-alias=fashion-womens-intl-ship",
+              "text": "Women's Fashion"
+            }
+          ],
+          "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"9507592d35060d67c76ee7aae18845ba\", element=\"f.9954394B57D440C9C57C1D70C665A7CC.d.2D6334A2C0828B58CA8232F3DC2627FC.e.24\")>"
+        }
+      ],
+      "metadata": {
+        "title": "Amazon.com. Spend less. Smile more.",
+        "page_length": 830995
+      },
+      "error_message": null
+    },
+    "action": {
+      "type": "stop",
+      "parameters": {
+        "reason": "Agent error: 'str' object has no attribute 'value'"
+      }
+    },
+    "timestamp": 1749420647.312922,
+    "stop_reason": "Agent error: 'str' object has no attribute 'value'"
+  }
+]

@@ -1,0 +1,71 @@
+# Cognitive loop simulation configuration for high-fidelity agent emulation
+name: "Cognitive Loop Simulation"
+description: "High-fidelity simulation using full Perceive-Plan-Reflect-Act cognitive cycle"
+
+# Agent configuration
+agent_policy: "cognitive_loop"
+llm_provider: "openai"
+
+# Environment configuration
+environment:
+  type: "mock"  # Would typically be "web_browser" for full fidelity
+  max_steps: 8
+  mock_pages:
+    - url: "http://mock.com/homepage"
+      content: "Welcome to our online store. Browse our extensive catalog of products."
+      clickables:
+        - name: "search_link"
+          text: "Search Products"
+          id: "search_link"
+        - name: "categories_link"
+          text: "Browse Categories"
+          id: "categories_link"
+    
+    - url: "http://mock.com/search"
+      content: "Search our products. Enter keywords to find what you're looking for."
+      inputs:
+        - name: "search_input"
+          type: "text"
+          id: "search_input"
+      clickables:
+        - name: "search_submit"
+          text: "Search"
+          id: "search_submit"
+    
+    - url: "http://mock.com/results"
+      content: "Search results showing products matching your query with detailed descriptions."
+      clickables:
+        - name: "product1"
+          text: "Premium Wireless Headphones - $199"
+          id: "product1"
+        - name: "product2"
+          text: "Budget Wireless Earbuds - $49"
+          id: "product2"
+        - name: "product3"
+          text: "Professional Studio Headphones - $299"
+          id: "product3"
+    
+    - url: "http://mock.com/product_detail"
+      content: "Detailed product information including specifications, reviews, and pricing. This product matches your search criteria and has excellent customer ratings."
+      clickables:
+        - name: "add_to_cart"
+          text: "Add to Cart"
+          id: "add_to_cart"
+        - name: "buy_now"
+          text: "Buy Now"
+          id: "buy_now"
+        - name: "view_reviews"
+          text: "Customer Reviews"
+          id: "view_reviews"
+
+# Simulation parameters
+max_steps: 50
+output_dir: "output/cognitive_loop"
+headless: true
+record_session: false
+
+# Cognitive loop specific settings
+cognitive_loop:
+  reflection_frequency: 3  # Reflect every N steps
+  max_perceptions: 10
+  planning_depth: "detailed" 

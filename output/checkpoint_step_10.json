@@ -1,0 +1,13 @@
+{
+  "step": 10,
+  "agent_stats": {
+    "total_memories": 20,
+    "by_kind": {
+      "observation": 10,
+      "action": 10
+    },
+    "timestamp": 10,
+    "api_calls": 10
+  },
+  "timestamp": 1749413770.0034702
+}

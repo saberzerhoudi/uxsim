@@ -1,0 +1,2049 @@
+{
+  "simulation_id": "sim_1749429996",
+  "persona": {
+    "name": "Budget-Conscious Shopper",
+    "background": "You are Sarah, a 28-year-old graduate student living on a tight budget. You're very price-conscious \n            and always look for deals, discounts, and the best value for money. You read reviews carefully \n            before making any purchase and prefer products with good ratings and reasonable prices.",
+    "intent": "Find a good quality wireless bluetooth headphones under $50 with good reviews",
+    "age": 28,
+    "gender": "female",
+    "income": [
+      20000,
+      30000
+    ]
+  },
+  "config": {
+    "max_steps": 50,
+    "environment_type": "web_browser",
+    "environment_config": {
+      "start_url": "https://www.amazon.com",
+      "recipes": [
+        {
+          "match": "/",
+          "match_method": "url",
+          "selector": "html",
+          "children": [
+            {
+              "selector": "head",
+              "children": [
+                {
+                  "selector": "title",
+                  "add_text": true
+                }
+              ]
+            },
+            {
+              "selector": "body",
+              "children": [
+                {
+                  "selector": "#nav-search-bar-form",
+                  "children": [
+                    {
+                      "selector": "input#twotabsearchtextbox",
+                      "name": "search_input"
+                    },
+                    {
+                      "selector": "#nav-search-submit-button",
+                      "clickable": true,
+                      "name": "search_button"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "match": "/s",
+          "match_method": "url",
+          "selector": "html",
+          "children": [
+            {
+              "selector": "head",
+              "children": [
+                {
+                  "selector": "title",
+                  "add_text": true
+                }
+              ]
+            },
+            {
+              "selector": "body",
+              "children": [
+                {
+                  "selector": "#nav-search-bar-form",
+                  "children": [
+                    {
+                      "selector": "input#twotabsearchtextbox",
+                      "name": "search_input"
+                    },
+                    {
+                      "selector": "#nav-search-submit-button",
+                      "clickable": true,
+                      "name": "search_button"
+                    }
+                  ]
+                },
+                {
+                  "selector": "#s-refinements",
+                  "name": "refinements",
+                  "children": [
+                    {
+                      "selector": "div.a-section.a-spacing-none:not(:has(#n-title)):has(span.a-size-base.a-color-base.puis-bold-weight-text):has(ul span.a-declarative > span > li):not(#reviewsRefinements):not(#departments):not(#priceRefinements):not(#filters)",
+                      "name": "from_text",
+                      "text_selector": "span.a-size-base.a-color-base.puis-bold-weight-text",
+                      "children": [
+                        {
+                          "selector": "span.a-size-base.a-color-base.puis-bold-weight-text",
+                          "add_text": true,
+                          "class": "refinement-title"
+                        },
+                        {
+                          "selector": "ul:nth-of-type(1) > span.a-declarative > span > li",
+                          "add_text": true,
+                          "name": "from_text",
+                          "clickable": true,
+                          "click_selector": "a",
+                          "direct_child": true,
+                          "children": [
+                            {
+                              "selector": "input[type='checkbox']"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "selector": "#departments",
+                      "name": "departments",
+                      "children": [
+                        {
+                          "selector": "li a",
+                          "add_text": true,
+                          "name": "from_text",
+                          "clickable": true
+                        }
+                      ]
+                    },
+                    {
+                      "selector": "#reviewsRefinements",
+                      "name": "reviews_refinements",
+                      "children": [
+                        {
+                          "selector": "li a",
+                          "add_text": true,
+                          "name": "from_text",
+                          "clickable": true
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "selector": "div.s-main-slot.s-result-list.s-search-results",
+                  "name": "search_results",
+                  "children": [
+                    {
+                      "insert_split_marker": true,
+                      "insert_split_marker_every": 4,
+                      "selector": "div[data-component-type=\"s-search-result\"]",
+                      "text_selector": "span.a-color-base.a-text-normal, h2.a-color-base.a-text-normal span",
+                      "name": "from_text",
+                      "class": "search-result",
+                      "children": [
+                        {
+                          "selector": "div[data-cy='title-recipe'] a.a-link-normal.s-link-style.a-text-normal",
+                          "add_text": true,
+                          "class": "product-name",
+                          "clickable": true,
+                          "name": "view_product"
+                        },
+                        {
+                          "selector": "div[data-cy='reviews-block']",
+                          "class": "product-review",
+                          "children": [
+                            {
+                              "selector": "span.a-icon-alt",
+                              "add_text": true,
+                              "class": "product-rating"
+                            },
+                            {
+                              "selector": "span.a-size-base.s-underline-text",
+                              "add_text": true,
+                              "text_format": "{} reviews",
+                              "class": "product-rating-count"
+                            }
+                          ]
+                        },
+                        {
+                          "selector": "div[data-cy='price-recipe']",
+                          "class": "product-price",
+                          "children": [
+                            {
+                              "selector": "a.a-link-normal > span.a-price > span.a-offscreen",
+                              "add_text": true
+                            }
+                          ]
+                        },
+                        {
+                          "selector": "div[data-cy='delivery-recipe']",
+                          "add_text": true,
+                          "class": "product-delivery"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "selector": "span.s-pagination-strip",
+                  "name": "pagination",
+                  "children": [
+                    {
+                      "selector": ".s-pagination-item",
+                      "add_text": true,
+                      "name": "from_text",
+                      "clickable": true
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "match": "#productTitle",
+          "match_text": "",
+          "selector": "html",
+          "terminate": "return !!arguments[0]",
+          "terminate_callback": "return arguments[0]",
+          "children": [
+            {
+              "selector": "head",
+              "children": [
+                {
+                  "selector": "title",
+                  "add_text": true
+                }
+              ]
+            },
+            {
+              "selector": "body",
+              "children": [
+                {
+                  "selector": "#nav-search-bar-form",
+                  "children": [
+                    {
+                      "selector": "input#twotabsearchtextbox",
+                      "name": "search_input"
+                    },
+                    {
+                      "selector": "#nav-search-submit-button",
+                      "clickable": true,
+                      "name": "search_button"
+                    }
+                  ]
+                },
+                {
+                  "selector": "#productTitle",
+                  "add_text": true,
+                  "class": "product-title"
+                },
+                {
+                  "selector": "#averageCustomerReviews",
+                  "class": "customer-reviews",
+                  "children": [
+                    {
+                      "selector": "span.a-icon-alt",
+                      "add_text": true,
+                      "class": "product-rating"
+                    },
+                    {
+                      "selector": "span.a-size-base.a-color-base",
+                      "add_text": true,
+                      "class": "rating-count"
+                    }
+                  ]
+                },
+                {
+                  "selector": "div.a-price-whole",
+                  "add_text": true,
+                  "class": "price-whole"
+                },
+                {
+                  "selector": "div.a-price-fraction",
+                  "add_text": true,
+                  "class": "price-fraction"
+                },
+                {
+                  "selector": "#add-to-cart-button",
+                  "clickable": true,
+                  "name": "add_to_cart",
+                  "add_text": true
+                },
+                {
+                  "selector": "#buy-now-button",
+                  "clickable": true,
+                  "name": "buy_now",
+                  "add_text": true
+                },
+                {
+                  "selector": "#feature-bullets ul",
+                  "children": [
+                    {
+                      "selector": "li",
+                      "add_text": true,
+                      "class": "product-feature"
+                    }
+                  ]
+                },
+                {
+                  "selector": "#productDescription",
+                  "add_text": true,
+                  "class": "product-description"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "match": "/gp/cart",
+          "match_method": "url",
+          "selector": "html",
+          "children": [
+            {
+              "selector": "head",
+              "children": [
+                {
+                  "selector": "title",
+                  "add_text": true
+                }
+              ]
+            },
+            {
+              "selector": "body",
+              "children": [
+                {
+                  "selector": "#nav-search-bar-form",
+                  "children": [
+                    {
+                      "selector": "input#twotabsearchtextbox",
+                      "name": "search_input"
+                    },
+                    {
+                      "selector": "#nav-search-submit-button",
+                      "clickable": true,
+                      "name": "search_button"
+                    }
+                  ]
+                },
+                {
+                  "selector": "#sc-active-cart",
+                  "name": "cart_items",
+                  "children": [
+                    {
+                      "selector": "div[data-name='Active Items']",
+                      "name": "cart_item",
+                      "children": [
+                        {
+                          "selector": "span[data-component-type='s-product-image'] img",
+                          "name": "product_image"
+                        },
+                        {
+                          "selector": "h4.a-size-base-plus a",
+                          "add_text": true,
+                          "clickable": true,
+                          "name": "product_link"
+                        },
+                        {
+                          "selector": "span.a-price.a-text-price.a-size-medium.a-color-base",
+                          "add_text": true,
+                          "class": "item-price"
+                        },
+                        {
+                          "selector": "input[name='quantity']",
+                          "name": "quantity_input"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "selector": "#sc-subtotal-amount-activecart",
+                  "add_text": true,
+                  "class": "cart-subtotal"
+                },
+                {
+                  "selector": "input[name='proceedToRetailCheckout']",
+                  "clickable": true,
+                  "name": "proceed_to_checkout",
+                  "add_text": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "wait_time": 2,
+      "max_retries": 3,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "headless": false
+    },
+    "policy_type": "agent",
+    "policy_config": {
+      "save_traces": true,
+      "save_agent_state": true,
+      "enable_reflection": true,
+      "enable_memory_update": true
+    },
+    "llm_provider": "openai",
+    "output_dir": "runs/amazon_budget_shopper",
+    "save_traces": true
+  },
+  "steps": [
+    {
+      "step": 1,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nSign in\nNew customer? Start here.\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome\nKitchen\nHealth and Beauty\nSee more\nEasy updates for elevated spaces\nBaskets & hampers\nHardware\nBest Sellers in Books\nBest Sellers in Clothing, Shoes & Jewelry\nWireless Tech\nSmartphones\nWatches\nHeadphones\nTablets\nDiscover more",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 795816
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430009.1987672
+    },
+    {
+      "step": 2,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones for work\nwireless bluetooth headphones 5.3\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388745
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430018.562049
+    },
+    {
+      "step": 3,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphone\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones 5.3\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388110
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430029.031203
+    },
+    {
+      "step": 4,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones 5.3\nwireless bluetooth headphones for work\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388104
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430040.158082
+    },
+    {
+      "step": 5,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones 5.3\nwireless bluetooth headphones for work\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388104
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430051.1360252
+    },
+    {
+      "step": 6,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphone\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones 5.3\nWIRELESS BLUETOOTH HEADPHONES BY TYPE\nComputer\nWaterproof\nEarbuds\nRetractable\nTrucker\nNeck\nWifi\nBone\nGaming\nFoldable\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 393752
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430061.053715
+    },
+    {
+      "step": 7,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones for work\nwireless bluetooth headphones jbl\nWIRELESS BLUETOOTH HEADPHONES BY TYPE\nComputer\nWaterproof\nEarbuds\nRetractable\nTrucker\nNeck\nWifi\nBone\nGaming\nFoldable\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388074
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430072.7775989
+    },
+    {
+      "step": 8,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones 5.3\nwireless bluetooth headphones for work\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388087
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430084.0866811
+    },
+    {
+      "step": 9,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones 5.3\nwireless bluetooth headphones for work\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388104
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430094.5323882
+    },
+    {
+      "step": 10,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones 5.3\nwireless bluetooth headphones for work\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388104
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430105.658287
+    },
+    {
+      "step": 11,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones 5.3\nwireless bluetooth headphones for work\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388098
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430116.652066
+    },
+    {
+      "step": 12,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones 5.3\nwireless bluetooth headphones for work\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388113
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430128.935841
+    },
+    {
+      "step": 13,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones 5.3\nwireless bluetooth headphones for work\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388098
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones $25 to $50"
+        }
+      },
+      "timestamp": 1749430139.591299
+    },
+    {
+      "step": 14,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome\nKitchen\nHealth and Beauty\nSee more\nEasy updates for elevated spaces\nBaskets & hampers\nHardware\nBest Sellers in Books\nBest Sellers in Clothing, Shoes & Jewelry\nWireless Tech\nSmartphones\nWatches\nHeadphones\nTablets\nDiscover more\nHave more fun with family\nOutdoor Play Sets",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388098
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones $25 to $50"
+        }
+      },
+      "timestamp": 1749430152.18733
+    },
+    {
+      "step": 15,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome\nKitchen\nHealth and Beauty\nSee more\nEasy updates for elevated spaces\nBaskets & hampers\nHardware\nBest Sellers in Books\nBest Sellers in Clothing, Shoes & Jewelry\nWireless Tech\nSmartphones\nWatches\nHeadphones\nTablets\nDiscover more\nHave more fun with family\nOutdoor Play Sets",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388071
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones $25 to $50"
+        }
+      },
+      "timestamp": 1749430163.7333992
+    },
+    {
+      "step": 16,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome\nKitchen\nHealth and Beauty\nSee more\nEasy updates for elevated spaces\nBaskets & hampers\nHardware\nBest Sellers in Books\nBest Sellers in Clothing, Shoes & Jewelry\nWireless Tech\nSmartphones\nWatches\nHeadphones\nTablets\nDiscover more\nHave more fun with family\nOutdoor Play Sets",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388098
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones $25 to $50"
+        }
+      },
+      "timestamp": 1749430177.329119
+    },
+    {
+      "step": 17,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nbluetooth wireless headphones under 25\nwireless bluetooth adapter for bose quietcomfort qc 25 headphones\nelgin ruckus wireless bluetooth earplug headphones, 25 db nrr\nwireless bluetooth adapter for bose quietcomfort 25 headphones qc25\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome\nKitchen\nHealth and Beauty\nSee more\nEasy updates for elevated spaces\nBaskets & hampers\nHardware\nBest Sellers in Books\nBest Sellers in Clothing, Shoes & Jewelry\nWireless Tech\nSmartphones\nWatches\nHeadphones",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388104
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430187.100061
+    },
+    {
+      "step": 18,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones 5.3\nwireless bluetooth headphones for work\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388098
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430197.543068
+    },
+    {
+      "step": 19,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphone\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones 5.3\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388077
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430208.129497
+    },
+    {
+      "step": 20,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphone\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones 5.3\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388071
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430219.455571
+    },
+    {
+      "step": 21,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphone\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones 5.3\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388077
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430230.0706718
+    },
+    {
+      "step": 22,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones 5.3\nwireless bluetooth headphones for work\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388104
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430241.122408
+    },
+    {
+      "step": 23,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphone\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones 5.3\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388077
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430250.839524
+    },
+    {
+      "step": 24,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones 5.3\nwireless bluetooth headphones for work\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388104
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430263.6100538
+    },
+    {
+      "step": 25,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth headphones over ear\nwireless bluetooth headphones with mic\nwireless bluetooth headphones for kids\nwireless bluetooth headphones noise canceling\nwireless bluetooth headphones for tv\nwireless bluetooth headphones with microphone\nwireless bluetooth headphones tozo\nwireless bluetooth headphones 5.3\nwireless bluetooth headphones for work\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388098
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones"
+        }
+      },
+      "timestamp": 1749430273.470815
+    },
+    {
+      "step": 26,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWireless bluetooth headphones by price\nUnder $25\n$25 to $50\n$50 to $100\n$100 to $200\n$200 & Above\nwireless bluetooth headphones\nwireless bluetooth speaker\nwireless bluetooth mouse\nwireless bluetooth keyboard\nwireless bluetooth microphone\nwireless bluetooth\nwireless bluetooth outdoor speakers\nwireless bluetooth mouse for laptop\nwireless bluetooth car adapter\nwireless bluetooth camera\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 387836
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones under $50"
+        }
+      },
+      "timestamp": 1749430298.169431
+    },
+    {
+      "step": 27,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nwireless bluetooth headphones under 15\nwireless bluetooth headphones under 10\ncheap under 20 dollars over-ear headphones wireless bluetooth\ncheap under 5 dollars over-ear headphones wireless bluetooth\ncheap under 10 dollars over-ear headphones wireless bluetooth\nheadphones wireless bluetooth under 20\nheadphones wireless bluetooth under 50\nheadphones wireless bluetooth under 5\nheadphones wireless bluetooth kids girls 8-12 under 10\ncheap under 10 dollars headphones wireless bluetooth\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome\nKitchen\nHealth and Beauty\nSee more\nEasy updates for elevated spaces\nBaskets & hampers\nHardware",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388104
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones under $50"
+        }
+      },
+      "timestamp": 1749430309.872662
+    },
+    {
+      "step": 28,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nwireless bluetooth headphones under 15\nwireless bluetooth headphones under 10\ncheap under 20 dollars over-ear headphones wireless bluetooth\ncheap under 5 dollars over-ear headphones wireless bluetooth\ncheap under 10 dollars over-ear headphones wireless bluetooth\nheadphones wireless bluetooth under 20\nheadphones wireless bluetooth under 5\nheadphones wireless bluetooth under 50\nheadphones wireless bluetooth kids girls 8-12 under 10\ncheap under 10 dollars headphones wireless bluetooth\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome\nKitchen\nHealth and Beauty\nSee more\nEasy updates for elevated spaces\nBaskets & hampers\nHardware",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388098
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones under $50"
+        }
+      },
+      "timestamp": 1749430321.313511
+    },
+    {
+      "step": 29,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nwireless bluetooth headphones under 15\nwireless bluetooth headphones under 10\ncheap under 20 dollars over-ear headphones wireless bluetooth\ncheap under 5 dollars over-ear headphones wireless bluetooth\ncheap under 10 dollars over-ear headphones wireless bluetooth\nheadphones wireless bluetooth under 20\nheadphones wireless bluetooth under 50\nheadphones wireless bluetooth under 5\nheadphones wireless bluetooth kids girls 8-12 under 10\ncheap under 10 dollars headphones wireless bluetooth\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome\nKitchen\nHealth and Beauty\nSee more\nEasy updates for elevated spaces\nBaskets & hampers\nHardware",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388104
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones under $50"
+        }
+      },
+      "timestamp": 1749430331.406967
+    },
+    {
+      "step": 30,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nwireless bluetooth headphones under 15\nwireless bluetooth headphones under 10\ncheap under 20 dollars over-ear headphones wireless bluetooth\ncheap under 5 dollars over-ear headphones wireless bluetooth\ncheap under 10 dollars over-ear headphones wireless bluetooth\nheadphones wireless bluetooth under 20\nheadphones wireless bluetooth under 50\nheadphones wireless bluetooth under 5\nheadphones wireless bluetooth kids girls 8-12 under 10\ncheap under 10 dollars headphones wireless bluetooth\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome\nKitchen\nHealth and Beauty\nSee more\nEasy updates for elevated spaces\nBaskets & hampers\nHardware",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388077
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones under $50"
+        }
+      },
+      "timestamp": 1749430340.6972952
+    },
+    {
+      "step": 31,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nwireless bluetooth headphones under 15\nwireless bluetooth headphones under 10\ncheap under 20 dollars over-ear headphones wireless bluetooth\nkids unicorn bluetooth headphones wireless\ncheap under 5 dollars over-ear headphones wireless bluetooth\ncheap under 10 dollars over-ear headphones wireless bluetooth\nheadphones wireless bluetooth under 20\nheadphones wireless bluetooth under 50\nheadphones wireless bluetooth kids girls 8-12 under 10\ncheap under 10 dollars headphones wireless bluetooth\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome\nKitchen\nHealth and Beauty\nSee more\nEasy updates for elevated spaces\nBaskets & hampers\nHardware",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388077
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "type",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_input_0",
+          "text": "wireless Bluetooth headphones under $50"
+        }
+      },
+      "timestamp": 1749430351.271449
+    },
+    {
+      "step": 32,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nwireless bluetooth headphones under 15\nwireless bluetooth headphones under 10\ncheap under 20 dollars over-ear headphones wireless bluetooth\ncheap under 5 dollars over-ear headphones wireless bluetooth\ncheap under 10 dollars over-ear headphones wireless bluetooth\nheadphones wireless bluetooth under 20\nheadphones wireless bluetooth under 50\nheadphones wireless bluetooth under 5\nheadphones wireless bluetooth kids girls 8-12 under 10\ncheap under 10 dollars headphones wireless bluetooth\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\nPrevious slide\nNext slide\nYou are on amazon.com. You can also shop on Amazon Germany for millions of products with fast local delivery. Click here to go to amazon.de\nGet your game on\nShop gaming\nTop categories in Kitchen appliances\nCooker\nCoffee\nPots and\u2026\nKettles\nExplore all products in Kitchen\nShop for your home essentials\nCleaning Tools\nHome Storage\nHome Decor\nBedding\nDiscover more in Home\nShop Fashion for less\nJeans under $50\nTops under $25\nDresses under $30\nShoes under $50\nSee all deals\nNew home arrivals under $50\nKitchen & Dining\nHome Improvement\nD\u00e9cor\nBedding & Bath\nShop the latest from Home\nToys under $25\nShop now\nGifts for Dad under $25\nSee all deals\nRefresh your space\nDining\nHome\nKitchen\nHealth and Beauty\nSee more\nEasy updates for elevated spaces\nBaskets & hampers\nHardware",
+        "url": "https://www.amazon.com/",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.23\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.2D79D1A9A9F52BDC8ED4929031271CF6.e.29\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com. Spend less. Smile more.",
+          "page_length": 388104
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "click",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_button_0"
+        }
+      },
+      "timestamp": 1749430362.098623
+    },
+    {
+      "step": 33,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\n1-16 of over 10,000 results for \"wireless Bluetooth headphones under $50\"\nSort by:\nFeatured\nPrice: Low to High\nPrice: High to Low\nAvg. Customer Review\nNewest Arrivals\nBest Sellers\nSort by:Featured\nResults\nCheck each product page for other buying options.\nSponsored\nWireless Earbuds, Bluetooth 5.4 Headphones with 4 ENC Noise Cancelling Mic, 45Hrs Playtime Wireless Headphones HiFi Stereo Deep Bass, in Ear Earbuds IP7 Waterproof, Bluetooth Earphones for Android iOS\n236\n$22\n99\nTypical:\n$159.99\nDelivery Fri, Jun 20\nShips to Germany\nAdd to cart\n+4 other colors/patterns\nSponsored\nLORELEI Q60 Wireless Bluetooth On-Ear Headphones Lightweight \uff0cBuilt-in Micphone, 40 Hours Up Battery Life, Bass Mode, Memory Earmuffs (Starlight)\n96\n300+ bought in past month\n$21\n99\nTypical:\n$24.99\nDelivery Fri, Jun 20\nShips to Germany\nAdd to cart\n+2 other colors/patterns\nOverall Pick\nWireless Earbuds Bluetooth V5.3 Headphones 50H Playback Deep Bass Stereo Ear Buds with LED Power Display Charging Case IPX7 Waterproof Earphones with Mic Headset for Laptop Pad Android/iOS Phones\n1,785\n10K+ bought in past month\n$5\n99\nTypical:\n$19.99\nDelivery Jun 18 - 24\nShips to Germany\nAdd to cart\nWireless Earbuds Bluetooth 5.4 Headphones 75H Stereo Deep Bass Sports Over Ear Buds with Earhooks, LED Display Bluetooth Earbuds with 4 ENC Mic, IP7 Waterproof Earphone for Running, Black\nTop Reviewed for Sound quality\n495\n7K+ bought in past month\n$23\n99\nTypical:",
+        "url": "https://www.amazon.com/s?k=wireless+Bluetooth+headphones+under+%2450&crid=255W3DQQ9HNN7&sprefix=wireless+bluetooth+headphones+under+50%2Caps%2C613&ref=nb_sb_noss_2",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.88FB91B75B72A10BCF41E0D87FB2D9A6.e.301\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.88FB91B75B72A10BCF41E0D87FB2D9A6.e.158\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.88FB91B75B72A10BCF41E0D87FB2D9A6.e.301\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com : wireless Bluetooth headphones under $50",
+          "page_length": 1559485
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "click",
+        "parameters": {
+          "element_id": "_body_0_nav-search-bar-form_0_search_button_0"
+        }
+      },
+      "timestamp": 1749430392.714545
+    },
+    {
+      "step": 34,
+      "observation": {
+        "page_content": "Deliver to\nGermany\nAll\nAll Departments\nArts & Crafts\nAutomotive\nBaby\nBeauty & Personal Care\nBooks\nBoys' Fashion\nComputers\nDeals\nDigital Music\nElectronics\nGirls' Fashion\nHealth & Household\nHome & Kitchen\nIndustrial & Scientific\nKindle Store\nLuggage\nMen's Fashion\nMovies & TV\nMusic, CDs & Vinyl\nPet Supplies\nPrime Video\nSoftware\nSports & Outdoors\nTools & Home Improvement\nToys & Games\nVideo Games\nWomen's Fashion\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nWe're showing you items that ship to Germany. To see items that ship to a different country, change your delivery address.\nDismiss\nChange Address\nAll\nToday's Deals\nRegistry\nPrime Video\nGift Cards\nCustomer Service\nSell\n1-16 of over 10,000 results for \"wireless Bluetooth headphones under $50\"\nSort by:\nFeatured\nPrice: Low to High\nPrice: High to Low\nAvg. Customer Review\nNewest Arrivals\nBest Sellers\nSort by:Featured\nResults\nCheck each product page for other buying options.\nSponsored\nWireless Bluetooth Headphones Over Ear 65H Playtime HiFi Stereo Headset with Microphone and 6EQ Modes Foldable Bluetooth V5.3 Headphones for Travel Smartphone Computer Laptop\n9,519\n500+ bought in past month\n$20\n99\nList Price:\n$25.99\nDelivery Fri, Jun 20\nShips to Germany\nSee options\n+4 other colors/patterns\nSponsored\nWireless Earbuds, Bluetooth 5.4 Headphones with 4 ENC Noise Cancelling Mic, 45Hrs Playtime Wireless Headphones HiFi Stereo Deep Bass, in Ear Earbuds IP7 Waterproof, Bluetooth Earphones for Android iOS\n236\n$22\n99\nTypical:\n$159.99\nDelivery Fri, Jun 20\nShips to Germany\nAdd to cart\n+4 other colors/patterns\nOverall Pick\nWireless Earbuds Bluetooth V5.3 Headphones 50H Playback Deep Bass Stereo Ear Buds with LED Power Display Charging Case IPX7 Waterproof Earphones with Mic Headset for Laptop Pad Android/iOS Phones\n1,785\n10K+ bought in past month\n$5\n99\nTypical:\n$19.99\nDelivery Jun 18 - 24\nShips to Germany\nAdd to cart\nWireless Earbuds Bluetooth 5.4 Headphones 75H Stereo Deep Bass Sports Over Ear Buds with Earhooks, LED Display Bluetooth Earbuds with 4 ENC Mic, IP7 Waterproof Earphone for Running, Black\nTop Reviewed for Sound quality\n495\n7K+ bought in past month\n$23\n99\nTypical:",
+        "url": "https://www.amazon.com/s?k=wireless+Bluetooth+headphones+under+%2450&ref=nb_sb_noss",
+        "clickables": [
+          {
+            "name": "search_button",
+            "text": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "tag": "input",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.C9CDA62B0F135754E734417E0881A4A9.e.482\")>"
+          }
+        ],
+        "inputs": [
+          {
+            "name": "search_input",
+            "type": "text",
+            "placeholder": "Search Amazon",
+            "id": "_body_0_nav-search-bar-form_0_search_input_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.C9CDA62B0F135754E734417E0881A4A9.e.339\")>"
+          },
+          {
+            "name": "search_button",
+            "type": "submit",
+            "placeholder": "",
+            "id": "_body_0_nav-search-bar-form_0_search_button_0",
+            "element": "<selenium.webdriver.remote.webelement.WebElement (session=\"8c8f27c356cda4519394485e3375740d\", element=\"f.4C0B3D2CC912BC57159115BD57459E9D.d.C9CDA62B0F135754E734417E0881A4A9.e.482\")>"
+          }
+        ],
+        "selects": [],
+        "metadata": {
+          "title": "Amazon.com : wireless Bluetooth headphones under $50",
+          "page_length": 1447415
+        },
+        "error_message": null
+      },
+      "action": {
+        "type": "click",
+        "parameters": {
+          "element_id": "Wireless_Earbuds_Bluetooth_5.4_Headphones"
+        }
+      },
+      "timestamp": 1749430404.986283,
+      "error": "Failed to execute action: Click failed: Clickable element not found: Wireless_Earbuds_Bluetooth_5.4_Headphones"
+    },
+    {
+      "step": 35,
+      "observation": {
+        "page_content": "",
+        "url": "https://www.amazon.com/s?k=wireless+Bluetooth+headphones+under+%2450&ref=nb_sb_noss",
+        "clickables": [],
+        "inputs": [],
+        "selects": [],
+        "metadata": {},
+        "error_message": "Failed to execute action: Click failed: Clickable element not found: Wireless_Earbuds_Bluetooth_5.4_Headphones"
+      },
+      "action": {
+        "type": "click",
+        "parameters": {
+          "element_id": "product_Wireless_Earbuds_Bluetooth_5.4_Headphones_23.99"
+        }
+      },
+      "timestamp": 1749430415.452354,
+      "error": "Failed to execute action: Click failed: Clickable element not found: product_Wireless_Earbuds_Bluetooth_5.4_Headphones_23.99"
+    },
+    {
+      "step": 36,
+      "observation": {
+        "page_content": "",
+        "url": "https://www.amazon.com/s?k=wireless+Bluetooth+headphones+under+%2450&ref=nb_sb_noss",
+        "clickables": [],
+        "inputs": [],
+        "selects": [],
+        "metadata": {},
+        "error_message": "Failed to execute action: Click failed: Clickable element not found: product_Wireless_Earbuds_Bluetooth_5.4_Headphones_23.99"
+      },
+      "action": {
+        "type": "click",
+        "parameters": {
+          "element_id": "product_reviews_link"
+        }
+      },
+      "timestamp": 1749430423.372342,
+      "error": "Failed to execute action: Click failed: Clickable element not found: product_reviews_link"
+    },
+    {
+      "step": 37,
+      "observation": {
+        "page_content": "",
+        "url": "https://www.amazon.com/s?k=wireless+Bluetooth+headphones+under+%2450&ref=nb_sb_noss",
+        "clickables": [],
+        "inputs": [],
+        "selects": [],
+        "metadata": {},
+        "error_message": "Failed to execute action: Click failed: Clickable element not found: product_reviews_link"
+      },
+      "action": {
+        "type": "stop",
+        "parameters": {
+          "reason": "Stop the simulation as there are no actionable elements available to read product reviews or make further decisions based on the current environment."
+        }
+      },
+      "timestamp": 1749430439.178883,
+      "stop_reason": "Stop the simulation as there are no actionable elements available to read product reviews or make further decisions based on the current environment."
+    }
+  ],
+  "total_steps": 36,
+  "duration_seconds": 442.23872804641724,
+  "status": "completed",
+  "completed": true,
+  "agent_state": {
+    "persona": {
+      "name": "Budget-Conscious Shopper",
+      "intent": "Find a good quality wireless bluetooth headphones under $50 with good reviews"
+    },
+    "current_plan": null,
+    "next_step": null,
+    "memory_count": 0,
+    "timestamp": 0,
+    "state": "idle"
+  },
+  "policy_state": {
+    "step_count": 37,
+    "persona_name": "Budget-Conscious Shopper",
+    "intent": "Find a good quality wireless bluetooth headphones under $50 with good reviews",
+    "run_path": "runs/amazon_budget_shopper",
+    "memory_timestamp": 37,
+    "memory_count": 959,
+    "current_plan": "As Sarah, a price-conscious graduate student, I should continue focusing on finding the best value wireless Bluetooth headphones under $50. I will start by thoroughly reviewing the 'Wireless Earbuds Bluetooth 5.4 Headphones' that I've been examining, ensuring they meet my needs for sound quality and reliability through user reviews. After confirming their quality, I'll compare them to other options like the 'LORELEI Q60 Wireless Bluetooth On-Ear Headphones' priced at $21.99, checking for any additional discounts or coupons that could enhance the value. I need to verify that each option is available for shipping to Germany and prioritize those with faster delivery times. To finalize my decision, I'll narrow down my choices to the top 2-3 products based on comprehensive user feedback, sound quality, and price. Once I've made a decision, I'll add the selected headphones to my cart, ensuring that my delivery details are accurate for shipping to Germany."
+  }
+}

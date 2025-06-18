@@ -1,0 +1,46 @@
+# Classic simulation configuration using component policy and mock environment
+name: "Classic Mock Simulation"
+description: "Fast, deterministic simulation using component-based decision making"
+
+# Agent configuration
+agent_policy: "component"
+llm_provider: "openai"
+
+# Environment configuration
+environment:
+  type: "mock"
+  max_steps: 5
+  mock_pages:
+    - url: "http://mock.com/search"
+      content: "Welcome to Mock Search Engine. Find anything you need!"
+      clickables:
+        - name: "search_btn"
+          text: "Search"
+          id: "search_btn"
+      inputs:
+        - name: "search_box"
+          type: "text"
+          id: "search_box"
+    
+    - url: "http://mock.com/results"
+      content: "Search results for your query. Here are relevant items."
+      clickables:
+        - name: "result1"
+          text: "First Result"
+          id: "result1"
+        - name: "result2"
+          text: "Second Result"
+          id: "result2"
+    
+    - url: "http://mock.com/product"
+      content: "Product page with detailed information about the item you're looking for."
+      clickables:
+        - name: "buy_btn"
+          text: "Buy Now"
+          id: "buy_btn"
+
+# Simulation parameters
+max_steps: 20
+output_dir: "output/classic_mock"
+headless: true
+record_session: false 

@@ -1,0 +1,7 @@
+{
+  "persona": "Persona: Sarah\n\nBackground:\nSarah is a 28-year-old marketing professional working at a tech startup in San Francisco. She is tech-savvy and comfortable with online shopping, often researching products thoroughly before making purchases. She values quality and functionality over brand names.\n\nDemographics:\nAge: 28\nGender: Female\nEducation: Bachelor's degree in Marketing\nProfession: Marketing Manager\nIncome: $75,000\n\nShopping Habits:\nSarah prefers to shop online for convenience and better prices. She typically reads reviews, compares features, and looks for deals before purchasing. She's particularly interested in electronics and gadgets that can improve her productivity.\n\nProfessional Life:\nAs a marketing manager, Sarah is responsible for digital campaigns and social media strategy. She stays up-to-date with the latest technology trends and tools that can enhance her work efficiency.\n\nPersonal Style:\nSarah has a minimalist approach to purchases, preferring quality items that serve multiple purposes. She values products with good design and functionality.",
+  "intent": "buy wireless headphones for work calls",
+  "age": 28,
+  "gender": "female",
+  "income": [60000, 90000]
+} 

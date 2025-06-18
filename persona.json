@@ -1,0 +1,7 @@
+{
+  "name": "TestUser",
+  "persona": "Persona: TestUser\n\nBackground:\nTestUser is a person interested in buy wireless headphones. They are looking to accomplish their goal efficiently and effectively.\n\nDemographics:\nAge: 30\nGender: Unknown\n\nShopping Habits:\nTestUser prefers to research thoroughly before making decisions. They value quality and functionality over trends.\n\nProfessional Life:\nTestUser leads a busy life and appreciates tools and services that save time and provide value.\n\nPersonal Style:\nTestUser has a practical approach to life and prefers straightforward, honest interactions.",
+  "intent": "buy wireless headphones",
+  "age": 30,
+  "gender": null
+}

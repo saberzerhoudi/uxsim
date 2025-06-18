@@ -1,0 +1,2 @@
+[console_scripts]
+searchsim = searchsim.cli:cli

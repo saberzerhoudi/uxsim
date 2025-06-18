@@ -1,0 +1,17 @@
+Persona: TestUser
+
+Background:
+TestUser is a person interested in buy wireless headphones. They are looking to accomplish their goal efficiently and effectively.
+
+Demographics:
+Age: 30
+Gender: Unknown
+
+Shopping Habits:
+TestUser prefers to research thoroughly before making decisions. They value quality and functionality over trends.
+
+Professional Life:
+TestUser leads a busy life and appreciates tools and services that save time and provide value.
+
+Personal Style:
+TestUser has a practical approach to life and prefers straightforward, honest interactions.
