@@ -7,12 +7,12 @@ import asyncio
 import sys
 from pathlib import Path
 
-# Add the searchsim package to the path
+# Add the uxsim package to the path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from searchsim.core.types import Persona, ActionType, SearchAction
-from searchsim.environments.recipes.amazon import AMAZON_RECIPES, get_amazon_config
-from searchsim.agent import Agent
+from uxsim.core.types import Persona, ActionType, SearchAction
+from uxsim.environments.recipes.amazon import AMAZON_RECIPES, get_amazon_config
+from uxsim.agent import Agent
 
 
 async def test_basic_functionality():
@@ -63,7 +63,7 @@ async def test_agent_cognitive_loop():
     agent = Agent(persona)
     
     # Create a mock observation
-    from searchsim.core.types import Observation
+    from uxsim.core.types import Observation
     mock_observation = Observation(
         page_content="Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more",
         url="https://www.amazon.com",
@@ -84,7 +84,7 @@ async def test_agent_cognitive_loop():
         print("⏭️  Skipping planning test (requires LLM)")
         
         # Test memory operations
-        from searchsim.core.types import MemoryPiece
+        from uxsim.core.types import MemoryPiece
         memory = MemoryPiece(
             content="Visited Amazon homepage",
             memory_type="observation"

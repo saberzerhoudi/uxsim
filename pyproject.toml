@@ -3,15 +3,11 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "searchsim"
+name = "uxsim"
 version = "0.2.0"
 description = "Advanced Search Simulation Framework with LLM-based Agents"
 readme = "README.md"
-license = "MIT"
 requires-python = ">=3.8"
-authors = [
-    {name = "SearchSim Team", email = "team@searchsim.ai"},
-]
 keywords = ["simulation", "search", "llm", "agent", "web-automation"]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -68,20 +64,20 @@ dev = [
     "pre-commit>=3.0.0",
 ]
 all = [
-    "searchsim[web,llm,search,dev]"
+    "uxsim[web,llm,search,dev]"
 ]
 
 [project.urls]
-Homepage = "https://github.com/searchsim/searchsim"
-Documentation = "https://searchsim.readthedocs.io"
-Repository = "https://github.com/searchsim/searchsim"
-"Bug Tracker" = "https://github.com/searchsim/searchsim/issues"
+Homepage = "https://github.com/uxsim/uxsim"
+Documentation = "https://uxsim.readthedocs.io"
+Repository = "https://github.com/uxsim/uxsim"
+"Bug Tracker" = "https://github.com/uxsim/uxsim/issues"
 
 [project.scripts]
-searchsim = "searchsim.cli:cli"
+uxsim = "uxsim.cli:cli"
 
 [tool.hatch.build.targets.wheel]
-packages = ["searchsim"]
+packages = ["uxsim"]
 
 [tool.black]
 line-length = 100

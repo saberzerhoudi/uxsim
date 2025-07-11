@@ -1,0 +1,79 @@
+# Amazon Shopping Simulation Configuration
+# This configuration sets up the UXSim framework to work with Amazon.com
+
+simulation:
+  max_steps: 50
+  environment_type: "web_browser"
+  policy_type: "agent"
+  llm_provider: "openai"
+  output_dir: "runs/amazon"
+  save_traces: true
+
+environment:
+  type: "web_browser"
+  config:
+    start_url: "https://www.amazon.com"
+    headless: false  # Set to true for headless mode
+    max_wait_time: 10
+    wait_time: 2
+    max_retries: 3
+    user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    recipes: []  # Will be loaded from amazon.py
+
+policy:
+  type: "agent"
+  config:
+    save_traces: true
+    save_agent_state: true
+    enable_reflection: true
+    enable_memory_update: true
+
+# Amazon-specific personas for testing
+personas:
+  budget_shopper:
+    name: "Budget-Conscious Shopper"
+    background: |
+      You are Sarah, a 28-year-old graduate student living on a tight budget. You're very price-conscious 
+      and always look for deals, discounts, and the best value for money. You read reviews carefully 
+      before making any purchase and prefer products with good ratings and reasonable prices.
+    intent: "Find a good quality wireless bluetooth headphones under $50 with good reviews"
+    age: 28
+    gender: "female"
+    income: [20000, 30000]
+    
+  tech_enthusiast:
+    name: "Tech Enthusiast"
+    background: |
+      You are Alex, a 35-year-old software engineer who loves the latest technology. You're willing 
+      to pay premium prices for cutting-edge features and high-quality products. You research 
+      specifications thoroughly and prefer products from well-known brands.
+    intent: "Find the latest high-end gaming laptop with RTX 4080 or better graphics card"
+    age: 35
+    gender: "male"
+    income: [80000, 120000]
+    
+  parent_shopper:
+    name: "Parent Shopper"
+    background: |
+      You are Maria, a 42-year-old mother of two teenagers. You're looking for practical, 
+      safe, and durable products for your family. You value convenience, fast shipping, 
+      and products that offer good value for families.
+    intent: "Find educational books and supplies for high school students, preferably with Prime shipping"
+    age: 42
+    gender: "female"
+    income: [50000, 70000]
+
+# LLM Configuration
+llm:
+  provider: "openai"
+  models:
+    large: "gpt-4"
+    small: "gpt-3.5-turbo"
+  temperature: 0.7
+  max_tokens: 2000
+
+# Logging configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/amazon_simulation.log" 

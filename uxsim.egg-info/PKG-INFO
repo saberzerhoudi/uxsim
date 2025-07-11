@@ -1,3 +1,49 @@
+Metadata-Version: 2.4
+Name: uxsim
+Version: 0.1.0
+Summary: A unified framework for search behavior simulation
+Author-email: UXSim Team <team@uxsim.dev>
+License: MIT
+Project-URL: Homepage, https://github.com/uxsim/uxsim
+Project-URL: Documentation, https://uxsim.readthedocs.io
+Project-URL: Repository, https://github.com/uxsim/uxsim
+Project-URL: Issues, https://github.com/uxsim/uxsim/issues
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: click>=8.0.0
+Requires-Dist: numpy>=1.20.0
+Requires-Dist: pyyaml>=6.0
+Provides-Extra: web
+Requires-Dist: selenium>=4.0.0; extra == "web"
+Requires-Dist: playwright>=1.20.0; extra == "web"
+Requires-Dist: beautifulsoup4>=4.10.0; extra == "web"
+Provides-Extra: llm
+Requires-Dist: openai>=1.0.0; extra == "llm"
+Requires-Dist: boto3>=1.26.0; extra == "llm"
+Provides-Extra: search
+Requires-Dist: whoosh>=2.7.0; extra == "search"
+Requires-Dist: elasticsearch>=8.0.0; extra == "search"
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.21.0; extra == "dev"
+Requires-Dist: black>=22.0.0; extra == "dev"
+Requires-Dist: isort>=5.10.0; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
+Requires-Dist: pre-commit>=2.20.0; extra == "dev"
+Provides-Extra: all
+Requires-Dist: uxsim[dev,llm,search,web]; extra == "all"
+
 # UXSim: Towards a Hybrid User Search Simulation
 
 ![UXSim Workflow](figure/uxsim_workflow.png)
@@ -320,3 +366,4 @@ pytest --cov=uxsim
 # Test specific component
 pytest tests/test_agent.py
 ```
+

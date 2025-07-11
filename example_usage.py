@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
 """
-Example: Using SearchSim directly for custom Amazon shopping scenarios
+Example: Using UXSim directly for custom Amazon shopping scenarios
 """
 
 import asyncio
 import sys
 from pathlib import Path
 
-# Add searchsim to path
+# Add UXSim to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from searchsim import Simulation
-from searchsim.core.types import Persona, SimulationConfig
-from searchsim.environments.recipes.amazon import AMAZON_RECIPES, get_amazon_config
+from uxsim import Simulation
+from uxsim.core.types import Persona, SimulationConfig
+from uxsim.environments.recipes.amazon import AMAZON_RECIPES, get_amazon_config
 
 
 async def custom_amazon_simulation():
-    """Example of using SearchSim directly for a custom scenario"""
+    """Example of using UXSim directly for a custom scenario"""
     
     # 1. Create a custom persona
     persona = Persona(
@@ -119,7 +119,7 @@ def main():
     """Choose which example to run"""
     import argparse
     
-    parser = argparse.ArgumentParser(description="SearchSim Usage Examples")
+    parser = argparse.ArgumentParser(description="UXSim Usage Examples")
     parser.add_argument(
         "--example",
         choices=["custom", "quick"],

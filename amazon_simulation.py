@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Amazon Shopping Simulation
-A complete implementation of the UXAgent Amazon use case using SearchSim framework.
+A complete implementation of the UXAgent Amazon use case using UXSim framework.
 
 This script demonstrates:
 1. UXAgent-compatible agent with full cognitive loop
@@ -17,14 +17,14 @@ import sys
 from pathlib import Path
 from typing import Dict, Any
 
-# Add the searchsim package to the path
+# Add the UXSim package to the path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from searchsim import Simulation
-from searchsim.core.types import Persona, SimulationConfig
-from searchsim.environments.web_browser_env import WebBrowserEnv
-from searchsim.environments.recipes.amazon import AMAZON_RECIPES, get_amazon_config
-from searchsim.policies.agent_policy import AgentPolicy
+from uxsim import Simulation
+from uxsim.core.types import Persona, SimulationConfig
+from uxsim.environments.web_browser_env import WebBrowserEnv
+from uxsim.environments.recipes.amazon import AMAZON_RECIPES, get_amazon_config
+from uxsim.policies.agent_policy import AgentPolicy
 
 # Set up logging
 logging.basicConfig(
